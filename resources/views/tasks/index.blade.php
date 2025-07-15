@@ -1,50 +1,35 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            All Tasks
-        </h2>
-    </x-slot>
+    <!-- ... existing header code ... -->
 
     <div class="max-w-6xl mx-auto p-4">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">Task List</h1>
-            <a href="{{ route('tasks.create') }}" 
-               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition duration-200">
-                Create New Task
-            </a>
-        </div>
+        <!-- ... existing create button ... -->
 
         <div class="space-y-4">
             @foreach($tasks as $task)
-                <div class="bg-white p-6 shadow rounded-lg">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-900">{{ $task->title }}</h3>
-                            <p class="text-gray-600 mt-1">{{ $task->description }}</p>
-                            <div class="mt-2 flex flex-wrap gap-2">
-                                <span class="px-2 py-1 text-xs font-medium rounded 
-                                    {{ $task->status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
-                                    {{ ucfirst($task->status) }}
-                                </span>
-                                <span class="px-2 py-1 text-xs font-medium rounded 
-                                    {{ $task->priority === 'high' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                    {{ ucfirst($task->priority) }} Priority
-                                </span>
-                                @if($task->category)
-                                <span class="px-2 py-1 text-xs font-medium rounded bg-purple-100 text-purple-800">
-                                    {{ $task->category }}
-                                </span>
+                <div class="bg-white p-6 shadow rounded-lg relative">
+                    <!-- Deadline reminder badge (absolute positioned) -->
+                    @if($task->deadline)
+                        @php
+                            $daysUntilDue = \Carbon\Carbon::parse($task->deadline)->diffInDays(now(), false);
+                        @endphp
+                        <div class="absolute top-4 right-4">
+                            <span class="px-2 py-1 text-xs font-medium rounded 
+                                @if($daysUntilDue > 0) bg-red-100 text-red-800
+                                @elseif($daysUntilDue == 0) bg-orange-100 text-orange-800
+                                @elseif($daysUntilDue >= -3) bg-yellow-100 text-yellow-800
+                                @else bg-gray-100 text-gray-800 @endif">
+                                @if($daysUntilDue > 0)
+                                    Overdue by {{ abs($daysUntilDue) }} day{{ abs($daysUntilDue) > 1 ? 's' : '' }}
+                                @elseif($daysUntilDue == 0)
+                                    Due today
+                                @else
+                                    Due in {{ abs($daysUntilDue) }} day{{ abs($daysUntilDue) > 1 ? 's' : '' }}
                                 @endif
-                            </div>
+                            </span>
                         </div>
-                        <div class="flex space-x-2">
-                            <a href="{{ route('tasks.edit', $task) }}" 
-                               class="text-blue-500 hover:text-blue-700">
-                                Edit
-                            </a>
-                        </div>
-                    </div>
+                    @endif
 
+                    <!-- ... rest of your task card content ... -->
                     <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
                         <div>
                             <p class="text-sm text-gray-500">
@@ -56,11 +41,12 @@
                         <div>
                             <p class="text-sm text-gray-500">
                                 <span class="font-medium">Deadline:</span> 
-                                {{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('M j, Y') : 'None' }}
+                                <span class="@if($task->deadline && \Carbon\Carbon::parse($task->deadline)->isPast()) text-red-600 font-medium @endif">
+                                    {{ $task->deadline ? \Carbon\Carbon::parse($task->deadline)->format('M j, Y g:i a') : 'None' }}
+                                </span>
                             </p>
                         </div>
                     </div>
-                    
                 </div>
             @endforeach
         </div>

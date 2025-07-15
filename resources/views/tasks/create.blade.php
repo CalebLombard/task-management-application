@@ -13,14 +13,18 @@
                 <div>
                     <label for="title" class="block text-sm font-medium text-gray-700">Title*</label>
                     <input type="text" name="title" id="title" required 
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                           value="{{ old('title') }}"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    @error('title')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                     <textarea name="description" id="description" rows="3"
-                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description') }}</textarea>
                 </div>
 
                 <!-- Status & Priority -->
@@ -28,20 +32,26 @@
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700">Status*</label>
                         <select name="status" id="status" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="pending">Pending</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="in_progress" {{ old('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                            <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                         </select>
+                        @error('status')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="priority" class="block text-sm font-medium text-gray-700">Priority*</label>
                         <select name="priority" id="priority" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
+                            <option value="medium" {{ old('priority') == 'medium' || !old('priority') ? 'selected' : '' }}>Medium</option>
+                            <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
                         </select>
+                        @error('priority')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
@@ -49,10 +59,12 @@
                 <div>
                     <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assign To</label>
                     <select name="assigned_to" id="assigned_to"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                         <option value="">Unassigned</option>
                         @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}" {{ old('assigned_to') == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -61,15 +73,28 @@
                 <div>
                     <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
                     <input type="datetime-local" name="deadline" id="deadline"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                           value="{{ old('deadline') }}"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+
+                <!-- Category -->
+                <div>
+                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                    <input type="text" name="category" id="category"
+                           value="{{ old('category') }}"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
                 <!-- Submit Button -->
                 <div class="mt-6">
                     <button type="submit" 
-                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Create Task
                     </button>
+                    <a href="{{ route('tasks.index') }}" 
+                       class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </form>

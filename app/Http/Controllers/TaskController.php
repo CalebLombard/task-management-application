@@ -11,7 +11,11 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('user')->latest()->get();
+        $tasks = Task::with('user')
+                   ->where('status', '!=', 'completed')
+                   ->latest()
+                   ->get();
+        
         return view('tasks.index', compact('tasks'));
     }
 
@@ -33,6 +37,10 @@ class TaskController extends Controller
             'deadline' => 'nullable|date'
         ]);
 
+        // Ensure consistent case format
+        $validated['priority'] = strtolower($validated['priority']);
+        $validated['status'] = str_replace(' ', '_', strtolower($validated['status']));
+
         $task = Task::create($validated);
         
         Log::info('Task created', ['task_id' => $task->id, 'user' => auth()->id()]);
@@ -40,6 +48,11 @@ class TaskController extends Controller
         return redirect()
             ->route('tasks.index')
             ->with('success', 'Task created successfully!');
+    }
+
+    public function show(Task $task)
+    {
+        return view('tasks.show', compact('task'));
     }
 
     public function edit(Task $task)
@@ -60,9 +73,19 @@ class TaskController extends Controller
             'deadline' => 'nullable|date'
         ]);
 
+        // Ensure consistent case format
+        $validated['priority'] = strtolower($validated['priority']);
+        $validated['status'] = str_replace(' ', '_', strtolower($validated['status']));
+
         $task->update($validated);
         
         Log::info('Task updated', ['task_id' => $task->id, 'changes' => $validated]);
+        
+        if ($validated['status'] === 'completed') {
+            return redirect()
+                ->route('tasks.completed')
+                ->with('success', 'Task marked as completed!');
+        }
         
         return redirect()
             ->route('tasks.index')
@@ -77,5 +100,15 @@ class TaskController extends Controller
         
         return back()
             ->with('success', 'Task deleted successfully');
+    }
+
+    public function completed()
+    {
+        $completedTasks = Task::where('status', 'completed')
+                            ->with('user')
+                            ->latest()
+                            ->get();
+        
+        return view('tasks.completed', compact('completedTasks'));
     }
 }

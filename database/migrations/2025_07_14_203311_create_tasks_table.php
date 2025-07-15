@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('priority', ['Low', 'Medium', 'High'])->default('Medium');
-            $table->enum('status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->string('priority')->default('medium'); // Changed from enum to string
+            $table->string('status')->default('pending');  // Changed from enum to string
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
             $table->string('category')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
