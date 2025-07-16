@@ -7,20 +7,39 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <style>
+            :root {
+                --bg-dark: #202225;
+                --navbar-bg: #18191a;
+                --priority-high: #ef4444;
+                --priority-medium: #f59e0b;
+                --priority-low: #10b981;
+            }
+            body {
+                font-family: 'Poppins', sans-serif;
+                background-color: var(--bg-dark);
+                color: #f3f4f6;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Montserrat', sans-serif;
+            }
+        </style>
     </head>
 
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="antialiased">
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
+                <header class="bg-[#18191a] shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -33,5 +52,4 @@
             </main>
         </div>
     </body>
-    
 </html>
