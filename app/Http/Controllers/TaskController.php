@@ -111,4 +111,14 @@ class TaskController extends Controller
         
         return view('tasks.completed', compact('completedTasks'));
     }
+
+    public function sendReminder(Task $task)
+{
+    $this->authorize('update', $task);
+    
+    $daysUntilDue = now()->diffInDays($task->deadline, false);
+    $task->user->notify(new TaskDeadlineNotification($task, $daysUntilDue));
+    
+    return back()->with('success', __('Reminder sent successfully!'));
+}
 }

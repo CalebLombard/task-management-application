@@ -22,5 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks/completed', [TaskController::class, 'completed'])->name('tasks.completed');
     Route::resource('tasks', TaskController::class);
 });
-
+Route::post('/tasks/{task}/remind', [TaskController::class, 'sendReminder'])
+    ->name('tasks.send-reminder')
+    ->middleware('auth');
 require __DIR__.'/auth.php';
