@@ -14,10 +14,10 @@
                     <label for="title" class="block text-sm font-medium text-white">Title*</label>
                     <input type="text" name="title" id="title" required 
                            value="{{ old('title') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-black"
+                           class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-gray-500"
                            placeholder="Enter task title">
                     @error('title')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -25,7 +25,7 @@
                 <div>
                     <label for="description" class="block text-sm font-medium text-white">Description</label>
                     <textarea name="description" id="description" rows="3"
-                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-black"
+                              class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-gray-500"
                               placeholder="Enter task description">{{ old('description') }}</textarea>
                 </div>
 
@@ -34,27 +34,27 @@
                     <div>
                         <label for="status" class="block text-sm font-medium text-white">Status*</label>
                         <select name="status" id="status" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-black">
-                            <option value="" disabled selected>Select status</option>
+                                class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="" disabled selected class="text-gray-500">Select status</option>
                             <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="in_progress" {{ old('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
                             <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                         </select>
                         @error('status')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
                         <label for="priority" class="block text-sm font-medium text-white">Priority*</label>
                         <select name="priority" id="priority" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-black">
-                            <option value="" disabled selected>Select priority</option>
+                                class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="" disabled selected class="text-gray-500">Select priority</option>
                             <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
                             <option value="medium" {{ old('priority') == 'medium' || !old('priority') ? 'selected' : '' }}>Medium</option>
                             <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
                         </select>
                         @error('priority')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
@@ -63,8 +63,8 @@
                 <div>
                     <label for="assigned_to" class="block text-sm font-medium text-white">Assign To</label>
                     <select name="assigned_to" id="assigned_to"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-black">
-                        <option value="" selected>Select user</option>
+                            class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option value="" selected class="text-gray-500">Select user</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ old('assigned_to') == $user->id ? 'selected' : '' }}>
                                 {{ $user->name }}
@@ -78,7 +78,7 @@
                     <label for="deadline" class="block text-sm font-medium text-white">Deadline</label>
                     <input type="datetime-local" name="deadline" id="deadline"
                            value="{{ old('deadline') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                           class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                 </div>
 
                 <!-- Category -->
@@ -86,18 +86,18 @@
                     <label for="category" class="block text-sm font-medium text-white">Category</label>
                     <input type="text" name="category" id="category"
                            value="{{ old('category') }}"
-                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-black"
+                           class="mt-1 block w-full rounded-md bg-white border-gray-300 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 placeholder-gray-500"
                            placeholder="Enter category">
                 </div>
 
                 <!-- Submit Button -->
                 <div class="mt-6">
                     <button type="submit" 
-                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Create Task
                     </button>
                     <a href="{{ route('tasks.index') }}" 
-                       class="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                       class="ml-2 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         Cancel
                     </a>
                 </div>
@@ -107,14 +107,14 @@
 
     <style>
         ::placeholder {
-            color: black !important;
+            color: #6B7280 !important;
             opacity: 1 !important;
         }
-        select, select option {
-            color: black !important;
-        }
         select:invalid, select option[value=""] {
-            color: gray !important;
+            color: #6B7280 !important;
+        }
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(0);
         }
     </style>
 </x-app-layout>
