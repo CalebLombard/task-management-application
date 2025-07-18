@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('priority')->default('medium'); // Changed from enum to string
-            $table->string('status')->default('pending');  // Changed from enum to string
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
             $table->string('category')->nullable();
             $table->timestamp('deadline')->nullable();

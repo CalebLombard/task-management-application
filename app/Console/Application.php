@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Application as ConsoleApplication;
-use App\Models\Task;
+use App\Models\CSKtask;
 use App\Notifications\TaskDeadlineReminder;
 
 class Application extends ConsoleApplication
@@ -13,7 +13,7 @@ class Application extends ConsoleApplication
     {
         $schedule->call(function () {
             $tomorrow = now()->addDay()->startOfDay();
-            $tasks = Task::whereDate('deadline', $tomorrow)
+            $tasks = CSKtask::whereDate('deadline', $tomorrow)
                       ->with('user')
                       ->get();
 

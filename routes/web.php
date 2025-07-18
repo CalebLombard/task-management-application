@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CSKtaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,8 +19,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     // Task Management Routes (specific routes first)
-    Route::get('/tasks/completed', [TaskController::class, 'completed'])->name('tasks.completed');
-    Route::resource('tasks', TaskController::class);
+    Route::get('/tasks/completed', [CSKtaskController::class, 'completed'])->name('tasks.completed');
+    Route::resource('tasks', CSKtaskController::class);
 });
+
+Route::post('/tasks/{task}/remind', [CSKtaskController::class, 'sendReminder'])
+    ->name('tasks.send-reminder')
+    ->middleware('auth');
 
 require __DIR__.'/auth.php';
