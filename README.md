@@ -91,13 +91,13 @@ In your terminal, you can use Tinker with this command: \
 `use App\Models\CSKtask;` \
 `use App\Notifications\TaskDeadlineReminder;` \
 `use Illuminate\Support\Facades\Notification;` \
-`use Carbon\Carbon; `
+`use Carbon\Carbon;` \ 
 
-`$task = CSKtask::with('user')->first(); `
+`$task = CSKtask::with('user')->first();` \
+`$daysRemaining = (int) floor(Carbon::parse($task->deadline)->diffInDays(now(), false));` \ 
 
-`$daysRemaining = (int) floor(Carbon::parse($task->deadline)->diffInDays(now(), false));` 
+`Notification::route('mail', $task->user->email)->notifyNow(new TaskDeadlineReminder($task, $daysRemaining));`
 
-`Notification::route('mail', $task->user->email)->notifyNow(new TaskDeadlineReminder($task, $daysRemaining)); `
 
 📘 Usage Guide: 
 
