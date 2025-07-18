@@ -7,7 +7,7 @@ This application helps you and your team stay organized without the hassle. This
 
 🚀 Technologies & Frameworks Used:
 
-Frontend: Tailwind CSS
+Frontend: Tailwind CSS\
 Backend: Laravel 12
 Database: mySQL
 Authentication: Laravel Breeze
