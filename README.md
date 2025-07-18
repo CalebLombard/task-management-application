@@ -49,7 +49,7 @@ Installation:
 `DB_PASSWORD= `
 
 5) Start the development server\
-`npm run dev` \
+`npm run build` \
 `php artisan serve` 
 
 
