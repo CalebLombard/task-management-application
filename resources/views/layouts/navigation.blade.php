@@ -40,7 +40,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')" class="text-white hover:bg-gray-700">
+                        <x-dropdown-link :href="route('profile.edit')" class="text-black hover:bg-white-700">
                             {{ __('Profile') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
@@ -48,7 +48,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();"
-                                    class="text-white hover:bg-gray-700">
+                                    class="text-black hover:bg-white-700">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
