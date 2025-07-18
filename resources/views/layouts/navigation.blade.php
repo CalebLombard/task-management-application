@@ -9,19 +9,19 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="relative text-white hover:text-gray-300 transition-colors duration-300">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="relative text-white hover:border-sky-500 transition-colors duration-300">
                         {{ __('Dashboard') }}
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
                     </x-nav-link>
-                    <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')" class="relative text-white hover:text-gray-300 transition-colors duration-300">
+                    <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')" class="relative text-white hover:border-sky-500 transition-colors duration-300">
                         {{ __('All Tasks') }}
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
                     </x-nav-link>
-                    <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')" class="relative text-white hover:text-gray-300 transition-colors duration-300">
+                    <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')" class="relative text-white hover:border-sky-500 transition-colors duration-300">
                         {{ __('Create Task') }}
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
                     </x-nav-link>
-                    <x-nav-link :href="route('tasks.completed')" :active="request()->routeIs('tasks.completed')" class="relative text-white hover:text-gray-300 transition-colors duration-300">
+                    <x-nav-link :href="route('tasks.completed')" :active="request()->routeIs('tasks.completed')" class="relative text-white hover:border-sky-500 transition-colors duration-300">
                         {{ __('Completed Tasks') }}
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
                     </x-nav-link>
