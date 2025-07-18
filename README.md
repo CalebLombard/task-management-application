@@ -48,7 +48,10 @@ Installation:
 `DB_USERNAME=root` \
 `DB_PASSWORD= `
 
-5) Start the development server\
+5) Generate App Key: \
+`php artisan key:generate`
+
+6) Start the development server\
 `npm run build` \
 `php artisan serve` 
 
