@@ -88,6 +88,12 @@ In your terminal, you can use Tinker with this command: \
 `php artisan tinker `
 
 6) Inside Tinker, run: \
+
+`$user = App\Models\User::find(2);` \
+`$user->email = 'guest@example.com';` \
+`$user->save();`
+
+THEN RUN THIS \
 `use App\Models\CSKtask;` \
 `use App\Notifications\TaskDeadlineReminder;` \
 `use Illuminate\Support\Facades\Notification;` \
